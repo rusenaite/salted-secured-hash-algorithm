@@ -9,18 +9,24 @@ namespace SaltedSecuredHashAlgorithm
 {
     public class Hash
     {
+        public const int LENGTH = 16;
+
+        /// <summary>
+        /// Method generates salt string which will be added to the user password.
+        /// </summary>
+        /// <returns> If generating went well, returns a string, otherwise - 
+        /// an empty string. </returns>
         public static string GenerateSaltString()
         {
             char[] characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&'()*+,-./:;<=>?@[]^_`{|}~".ToCharArray();
             
             RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider();
 
-            int length = 16;
-            byte[] data = new byte[length];
+            byte[] data = new byte[LENGTH];
 
             crypto.GetNonZeroBytes(data);
 
-            StringBuilder result = new(length);
+            StringBuilder result = new(LENGTH);
             foreach (byte b in data)
             {
                 result.Append(characters[b % (characters.Length)]);
@@ -28,10 +34,17 @@ namespace SaltedSecuredHashAlgorithm
             return result.ToString();
         }
 
+        /// <summary>
+        /// Method concatenates passed log in password with generated salt string.
+        /// </summary>
+        /// <param name="logIn"></param>
+        /// <returns> If concatenation went well, returns concatenated string,
+        /// otherwise - an empty string. </returns>
         public static string SaltPassword(LogInfo logIn)
         {
             string salt = GenerateSaltString();
-            return string.Join(logIn.Password, salt);
+            string saltedPass = string.Concat(logIn.Password, salt);
+            return saltedPass;
         }
 
         /// <summary>
@@ -64,7 +77,7 @@ namespace SaltedSecuredHashAlgorithm
         /// an emty string. </returns>
         public static string HashedSaltedPass(string saltedPass)
         {
-            string result = default(string);
+            string result = default;
 
             using (var algorithm = new MD5CryptoServiceProvider())
             {

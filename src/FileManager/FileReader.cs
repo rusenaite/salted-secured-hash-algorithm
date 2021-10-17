@@ -9,13 +9,13 @@ namespace SaltedSecuredHashAlgorithm
 {
     public class FileReader
     {
-        public static List<LogInfo> ReadTxtFile(string fileName)
+        public static List<LogInfo> ReadTxtFile(string path)
         {
             List<LogInfo> logInInfoList = new();
 
-            using (FileStream fs = File.Open(fileName, FileMode.Open))
+            using (FileStream fs = File.Open(path, FileMode.Open))
             {
-                using (StreamReader sr = new StreamReader(fs, System.Text.Encoding.ASCII))
+                using (StreamReader sr = new(fs, System.Text.Encoding.ASCII))
                 {
                     logInInfoList = ParseTxtFile(sr);
                 }

@@ -7,7 +7,7 @@ namespace SaltedSecuredHashAlgorithm
 {
     public class Program
     {
-        public const string path = "C:/Users/raust/source/repos/salted-secured-hash-algorithm/log_info.txt";
+        public const string path = "C:/Users/raust/source/repos/SaltedSecuredHashAlgorithm/log_info.txt";
 
         public static void Main()
         {
