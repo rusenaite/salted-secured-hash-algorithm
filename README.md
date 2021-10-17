@@ -37,6 +37,8 @@ IAmAnotherUser I1Have2A3Password4Too5
 user111 qwerty987654321
 ```
 
+After adding the data file, run the program and the result file named `hashed_log_info.txt` will be created in your program's main folder.
+
 ### More about Salted Hash Algorithm
 
 * [Salt in cryptography](https://en.wikipedia.org/wiki/Salt_(cryptography))
